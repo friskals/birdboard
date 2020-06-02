@@ -9,13 +9,15 @@
 
 <body>
     <h1>Welcome</h1>
-    @foreach($projects as $project)
-    <ol>
+    @forelse($projects as $project)
+    <ul>
         <li>
-            {{$project->title}}
+            <a href="{{$project->path()}}">{{$project->title}}</a>
         </li>
-    </ol>
-    @endforeach
+    </ul>
+    @empty
+    <h5>Project is Empty</h5>
+    @endforelse
 </body>
 
 </html>

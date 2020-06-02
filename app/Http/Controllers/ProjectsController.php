@@ -8,21 +8,26 @@ use Illuminate\Http\Request;
 class ProjectsController extends Controller
 {
     public function index()
+
     {
-        return view('projects.index')->with('projects', Project::all());
+        $projects =  auth()->user()->projects;
+        return view('projects.index')->with('projects', $projects);
     }
     public function store()
     {
-        request()->validate([
+        auth()->user()->projects()->create(request()->validate([
             'title' => 'required',
             'description' => 'required'
-        ]);
+        ]));
 
-        Project::create(request(['title', 'description']));
+
         return redirect('/projects');
     }
     public function show(Project $project)
     {
+        if (auth()->user()->isNot($project->owner)) {
+            abort(403);
+        }
         return view('projects.show')->with('project', $project);
     }
 }
