@@ -13,6 +13,10 @@ class ProjectsController extends Controller
         $projects =  auth()->user()->projects;
         return view('projects.index')->with('projects', $projects);
     }
+    public function create()
+    {
+        return view('projects.create');
+    }
     public function store()
     {
         auth()->user()->projects()->create(request()->validate([

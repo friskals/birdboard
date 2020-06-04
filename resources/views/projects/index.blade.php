@@ -1,23 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
+@section('content')
+<header class="flex items-center mb-3 py-4">
+    <div class="flex justify-between items-center w-full mx-2">
+        <h3 class="text-grey text-md font-normal">My Projects</h3>
+        <a href="{{route('projects.create')}}" class="button">New Project</a>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+    </div>
+</header>
 
-<body>
-    <h1>Welcome</h1>
+<div class="flex flex-wrap -mx-1">
     @forelse($projects as $project)
-    <ul>
-        <li>
-            <a href="{{$project->path()}}">{{$project->title}}</a>
-        </li>
-    </ul>
+    <div class="w-1/3 px-3 pb-6">
+        <div class="bg-white p-5 rounded-lg shadow" style="height:200px">
+            <h3 class="font-normal text-xl py-4 -ml-5 mb-3 border-l-4 border-blue-light pl-4">
+                <a href="{{$project->path()}}" class="text-black">{{$project->title}}</a>
+            </h3>
+            <div class="text-grey">{{ \Illuminate\Support\Str::limit($project->description, 100) }}</div>
+        </div>
+    </div>
     @empty
-    <h5>Project is Empty</h5>
+    <div>No Projects yet</div>
     @endforelse
-</body>
-
-</html>
+</div>
+@endsection

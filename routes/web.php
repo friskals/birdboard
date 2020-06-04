@@ -18,10 +18,11 @@ Route::get('/', function () {
 });
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/logout', 'Auth\LoginController@logout');
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/logout', 'Auth\LoginController@logout');
     Route::get('/projects', 'ProjectsController@index')->name('projects');
-    Route::post('/projects', 'ProjectsController@store')->name('projects.store');
+    Route::post('/projects', 'ProjectsController@store');
+    Route::get('/projects/create', 'ProjectsController@create')->name('projects.create');
     Route::get('/projects/{project}', 'ProjectsController@show')->name('projects.show');
 });
