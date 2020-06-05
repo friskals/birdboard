@@ -19,19 +19,21 @@ class ProjectsController extends Controller
     }
     public function store()
     {
-        auth()->user()->projects()->create(request()->validate([
+        $project = auth()->user()->projects()->create(request()->validate([
             'title' => 'required',
             'description' => 'required'
         ]));
 
 
-        return redirect('/projects');
+        return redirect($project->path());
     }
     public function show(Project $project)
     {
         if (auth()->user()->isNot($project->owner)) {
             abort(403);
         }
-        return view('projects.show')->with('project', $project);
+        return view('projects.show', [
+            'project' => $project
+        ]);
     }
 }

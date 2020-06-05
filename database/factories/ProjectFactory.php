@@ -12,5 +12,10 @@ $factory->define(Project::class, function (Faker $faker) {
         'owner_id' => factory(User::class),
         'title' => $faker->sentence,
         'description' => $faker->paragraph
+        /**
+         *  'owner_id' => function () {
+         *  return factory(User::class)->create()->id();
+         *  },
+         */
     ];
 });
