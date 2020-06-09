@@ -39,9 +39,16 @@
                     @csrf
                     @method('PATCH')
                     <textarea name="notes" class="card w-full mb-3" style="min-height : 300px" placeholder="Anything special that you want to make a note of?">
-                    {{trim($project->notes)}}
+                    {{$project->notes}}
                     </textarea>
                     <button type="submit" class="button">Save</button>
+                    @if($errors->any())
+                    <div class="field mt-6">
+                        @foreach($errors as $error)
+                        <div class="text-sm text-red"> hrlll {{$error}}</div>
+                        @endforeach
+                    </div>
+                    @endif
                 </form>
             </div>
         </div>

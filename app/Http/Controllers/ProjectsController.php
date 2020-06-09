@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Project;
-use Illuminate\Http\Request;
 
 class ProjectsController extends Controller
 {
@@ -19,12 +18,8 @@ class ProjectsController extends Controller
     }
     public function store()
     {
-        $attribute = request()->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'notes' => 'min:3'
-        ]);
-        $project = auth()->user()->projects()->create($attribute);
+
+        $project = auth()->user()->projects()->create($this->validateRequest());
 
 
         return redirect($project->path());
@@ -45,13 +40,16 @@ class ProjectsController extends Controller
     {
         $this->authorize('update', $project);
 
-        $attribute = request()->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'notes' => 'min:3'
-        ]);
-        $project->update($attribute);
+        $project->update($this->validateRequest());
 
         return redirect($project->path());
+    }
+    protected function validateRequest()
+    {
+        return request()->validate([
+            'title' => 'required|sometimes',
+            'description' => 'required|sometimes',
+            'notes' => 'nullable'
+        ]);
     }
 }
