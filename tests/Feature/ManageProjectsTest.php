@@ -34,7 +34,6 @@ class ManageProjectsTest extends TestCase
     public function a_project_require_an_owner()
     {
         $attribute = factory(Project::class)->raw(['owner_id' => '']);
-        //   $this->post(route('projects.store'), $attribute)->assertSessionHasErrors('owner_id');
         $this->post(route('projects'), $attribute)->assertRedirect('login');
     }
 
@@ -78,6 +77,7 @@ class ManageProjectsTest extends TestCase
 
         $this->assertDatabaseHas('projects', $attributes);
     }
+
     /** @test */
     public function a_user_can_update_their_project_general_notes()
     {
@@ -88,6 +88,7 @@ class ManageProjectsTest extends TestCase
 
         $this->assertDatabaseHas('projects', $attributes);
     }
+
     /** @test */
     public function a_user_can_view_their_project()
     {
@@ -128,6 +129,7 @@ class ManageProjectsTest extends TestCase
 
         $this->get($project->path())->assertStatus(403);
     }
+
     /** @test */
     public function an_authenticated_user_cannot_update_others_project()
     {
