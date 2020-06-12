@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
+    use RecordsActivity;
+
     protected $guarded = [];
 
     protected $touches = ['project'];
@@ -13,6 +15,10 @@ class Task extends Model
     protected $casts = [
         'completed' => 'boolean'
     ];
+
+    public $old = [];
+
+
     public function project()
     {
         return $this->belongsTo(Project::class);
@@ -25,12 +31,26 @@ class Task extends Model
     {
         $this->update(['completed' => true]);
 
-        $this->project->recordActivity('completed_task');
+        $this->recordActivity('completed_task');
     }
     public function incomplete()
     {
         $this->update(['completed' => false]);
 
-        $this->project->recordActivity('incompleted_task');
+        $this->recordActivity('incompleted_task');
+    }
+
+    public function activity()
+    {
+        return $this->morphMany(Activity::class, 'subject')->latest();
+    }
+    public function activityChanges()
+    {
+        if ($this->wasChanged()) {
+            return [
+                'before' => array_diff($this->old, $this->getAttributes()),
+                'after' => $this->getChanges()
+            ];
+        }
     }
 }

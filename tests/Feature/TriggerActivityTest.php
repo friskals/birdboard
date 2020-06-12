@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Task;
 use Facades\Tests\Setup\ProjectFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -16,7 +17,13 @@ class TriggerActivityTest extends TestCase
 
         $this->assertCount(1, $project->activity);
 
-        $this->assertEquals('created', $project->activity->first()->description);
+        tap($project->activity->last(), function ($activity) {
+
+            $this->assertEquals('created', $activity->description);
+
+
+            $this->assertNull($activity->changes);
+        });
     }
 
     /** @test */
@@ -24,11 +31,23 @@ class TriggerActivityTest extends TestCase
     {
         $project = ProjectFactory::create();
 
+        $originalTitle = $project->title;
+
         $project->update(['title' => 'changed']);
 
         $this->assertCount(2, $project->activity);
 
-        $this->assertEquals('updated', $project->activity->last()->description);
+        tap($project->activity->last(), function ($activity) use ($originalTitle) {
+
+            $this->assertEquals('updated', $activity->description);
+
+            $expected = [
+                'before' => ['title' => $originalTitle],
+                'after' => ['title' => 'changed']
+            ];
+            //   dd($activity->changes);
+            $this->assertEquals($expected, $activity->changes);
+        });
     }
 
     /** @test */
@@ -40,7 +59,14 @@ class TriggerActivityTest extends TestCase
 
         $this->assertCount(2, $project->activity);
 
-        $this->assertEquals('created_task', $project->activity->last()->description);
+        tap($project->activity->last(), function ($activity) {
+
+            $this->assertEquals('created_task', $activity->description);
+
+            $this->assertInstanceOf(Task::class, $activity->subject);
+
+            $this->assertEquals('New task', $activity->subject->body);
+        });
     }
 
     /** @test */
@@ -56,7 +82,12 @@ class TriggerActivityTest extends TestCase
 
         $this->assertCount(3, $project->activity);
 
-        $this->assertEquals('completed_task', $project->activity->last()->description);
+        tap($project->activity->last(), function ($activity) {
+
+            $this->assertEquals('completed_task', $activity->description);
+
+            $this->assertInstanceOf(Task::class, $activity->subject);
+        });
     }
 
     /** @test */

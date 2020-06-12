@@ -102,6 +102,7 @@ class ProjectTasksTest extends TestCase
     /** @test */
     public function a_project_can_have_task()
     {
+        $this->withoutExceptionHandling();
         $project = ProjectFactory::create();
 
         $this->be($project->owner)

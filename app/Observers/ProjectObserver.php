@@ -28,4 +28,14 @@ class ProjectObserver
     {
         $project->recordActivity('updated');
     }
+    /**
+     * Handle the project "updating" event.
+     *
+     * @param  \App\Project  $project
+     * @return void
+     */
+    public function updating(Project $project)
+    {
+        $project->old = $project->getOriginal();
+    }
 }

@@ -69,6 +69,7 @@ class ManageProjectsTest extends TestCase
     /** @test */
     public function a_user_can_update_their_project()
     {
+        $this->withoutExceptionHandling();
         $project = ProjectFactory::create();
 
         $this->be($project->owner)
@@ -92,6 +93,7 @@ class ManageProjectsTest extends TestCase
     /** @test */
     public function a_user_can_view_their_project()
     {
+        $this->withoutExceptionHandling();
         $project = ProjectFactory::create();
 
         $this->be($project->owner)
