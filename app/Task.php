@@ -16,9 +16,7 @@ class Task extends Model
         'completed' => 'boolean'
     ];
 
-    public $old = [];
-
-
+    protected static $recordableEvents = ['created', 'deleted'];
     public function project()
     {
         return $this->belongsTo(Project::class);
@@ -38,19 +36,5 @@ class Task extends Model
         $this->update(['completed' => false]);
 
         $this->recordActivity('incompleted_task');
-    }
-
-    public function activity()
-    {
-        return $this->morphMany(Activity::class, 'subject')->latest();
-    }
-    public function activityChanges()
-    {
-        if ($this->wasChanged()) {
-            return [
-                'before' => array_diff($this->old, $this->getAttributes()),
-                'after' => $this->getChanges()
-            ];
-        }
     }
 }

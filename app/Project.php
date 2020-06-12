@@ -11,8 +11,6 @@ class Project extends Model
 
     protected $guarded = [];
 
-    public $old = [];
-
     public function path()
     {
         return route('projects.show', $this->id);
@@ -32,15 +30,5 @@ class Project extends Model
     public function activity()
     {
         return $this->hasMany(Activity::class)->latest();
-    }
-
-    public function activityChanges()
-    {
-        if ($this->wasChanged()) {
-            return [
-                'before' => array_diff($this->old, $this->getAttributes()),
-                'after' => $this->getChanges()
-            ];
-        }
     }
 }
