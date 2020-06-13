@@ -39,13 +39,13 @@
                     @csrf
                     @method('PATCH')
                     <textarea name="notes" class="card w-full mb-3" style="min-height : 300px" placeholder="Anything special that you want to make a note of?">
-                    {{$project->notes}}
+                    {{trim($project->notes)}}
                     </textarea>
                     <button type="submit" class="button">Save</button>
                     @if($errors->any())
                     <div class="field mt-6">
                         @foreach($errors as $error)
-                        <div class="text-sm text-red"> hrlll {{$error}}</div>
+                        <div class="text-red-500 text-xs">{{$error}}</div>
                         @endforeach
                     </div>
                     @endif
@@ -54,8 +54,8 @@
         </div>
         <div class="lg:w-1/4 px-3">
             @include('projects.card')
-            
-        @include('projects.activity.card')
+
+            @include('projects.activity.card')
         </div>
     </div>
 </main>
