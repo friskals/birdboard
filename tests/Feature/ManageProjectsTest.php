@@ -15,7 +15,7 @@ class ManageProjectsTest extends TestCase
     use WithFaker, RefreshDatabase;
 
     /** @test */
-    public function guest_cannot_control_projects()
+    public function anauthorized_cannot_control_projects()
     {
 
         $project = factory(Project::class)->create();
@@ -66,6 +66,26 @@ class ManageProjectsTest extends TestCase
             ->assertSee($attributes['description'])
             ->assertSee($attributes['notes']);
     }
+
+    /** @test */
+    public function a_user_can_view_their_project()
+    {
+        $project = ProjectFactory::create();
+
+        $this->be($project->owner)
+            ->get($project->path())
+            ->assertSee($project->title)
+            ->assertSee($project->description);
+    }
+
+    /** @test */
+    public function a_user_can_see_all_project_they_have_been_invited_to_on_their_dashboard()
+    {
+
+        $project = tap(ProjectFactory::create())->invite($this->signIn());
+
+        $this->get('/projects')->assertSee($project->title);
+    }
     /** @test */
     public function a_user_can_delete_a_project()
     {
@@ -81,7 +101,7 @@ class ManageProjectsTest extends TestCase
     }
 
     /** @test */
-    public function guest_user_cannot_delete_project()
+    public function anauthorized_user_cannot_delete_project()
     {
         $project = ProjectFactory::create();
 
@@ -110,18 +130,6 @@ class ManageProjectsTest extends TestCase
             ->patch($project->path(), $attributes = ['notes' => 'Changed']);
 
         $this->assertDatabaseHas('projects', $attributes);
-    }
-
-    /** @test */
-    public function a_user_can_view_their_project()
-    {
-        $this->withoutExceptionHandling();
-        $project = ProjectFactory::create();
-
-        $this->be($project->owner)
-            ->get($project->path())
-            ->assertSee($project->title)
-            ->assertSee($project->description);
     }
 
     /** @test */
