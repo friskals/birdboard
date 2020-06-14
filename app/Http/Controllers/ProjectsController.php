@@ -21,8 +21,15 @@ class ProjectsController extends Controller
 
         $project = auth()->user()->projects()->create($this->validateRequest());
 
-
         return redirect($project->path());
+    }
+    public function destroy(Project $project)
+    {
+        $this->authorize('update', $project);
+
+        $project->delete();
+
+        return redirect(route('projects'));
     }
     public function show(Project $project)
     {

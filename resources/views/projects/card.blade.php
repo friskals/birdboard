@@ -3,4 +3,9 @@
         <a href="{{$project->path()}}" class="text-black">{{$project->title}}</a>
     </h3>
     <div class="text-grey">{{$project->description}}</div>
+    <form action="{{$project->path()}}" method="post" class="text-right">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="mt -8 text-xs">Delete</button>
+    </form>
 </div>
