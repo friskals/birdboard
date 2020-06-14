@@ -3,7 +3,7 @@
 <header class="flex items-center mb-3 py-4">
     <div class="flex justify-between items-end w-full mx-2">
         <h3 class="text-grey text-md font-normal">My Projects</h3>
-        <a href="{{route('projects.create')}}" class="button">New Project</a>
+        <a href="{{'/projects/create'}}" class="button">New Project</a>
     </div>
 </header>
 

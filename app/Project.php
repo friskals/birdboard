@@ -13,7 +13,7 @@ class Project extends Model
 
     public function path()
     {
-        return route('projects.show', $this->id);
+        return 'projects/' . $this->id;
     }
     public function owner()
     {
@@ -30,5 +30,13 @@ class Project extends Model
     public function activity()
     {
         return $this->hasMany(Activity::class)->latest();
+    }
+    public function invite(User $user)
+    {
+        return $this->members()->attach($user);
+    }
+    public function members()
+    {
+        return $this->belongsToMany(User::class, 'project_members');
     }
 }

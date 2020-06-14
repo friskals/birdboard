@@ -29,7 +29,7 @@ class ProjectsController extends Controller
 
         $project->delete();
 
-        return redirect(route('projects'));
+        return redirect('/projects');
     }
     public function show(Project $project)
     {

@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="mx-auto h-full  flex justify-center items-center mt-8">
-    <form class="lg:w-1/2 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 " method="POST" action="{{ isset($project) ? $project->path() : route('projects') }}" method="POST">
+    <form class="lg:w-1/2 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 " method="POST" action="{{ isset($project) ? $project->path() : route('projects.store') }}" method="POST">
 
         <h1 class="text-2xl font-normal mb-10 text-center items-center">Adding awesome project</h1>
         @csrf
@@ -27,7 +27,7 @@
             <div class="flex items-center justify-between">
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
                     {{isset($project) ? 'Update' : 'Create'}}</button>
-                <a href="{{route('projects')}}">Cancel</a>
+                <a href="{{route('projects.index')}}">Cancel</a>
             </div>
             @if($errors->any())
             @foreach($errors as $error)

@@ -20,29 +20,30 @@ class ManageProjectsTest extends TestCase
 
         $project = factory(Project::class)->create();
 
-        $this->get(route('projects'))->assertRedirect('login');
+        $this->get('/projects')->assertRedirect('login');
 
         $this->get($project->path())->assertRedirect('login');
 
         $this->get($project->path() . '/edit')->assertRedirect('login');
 
 
-        $this->post(route('projects'), $project->toArray())->assertRedirect('login');
+        $this->post('/projects', $project->toArray())->assertRedirect('login');
     }
 
     /** @test */
     public function a_project_require_an_owner()
     {
         $attribute = factory(Project::class)->raw(['owner_id' => '']);
-        $this->post(route('projects'), $attribute)->assertRedirect('login');
+        $this->post('/projects', $attribute)->assertRedirect('login');
     }
 
     /** @test */
     public function a_user_can_create_a_project()
     {
+        $this->withExceptionHandling();
         $this->signIn();
 
-        $this->get(route('projects.create'))->assertStatus(200);
+        $this->get('/projects/create')->assertStatus(200);
 
         $attributes = [
             'title' => $this->faker->sentence,
@@ -51,7 +52,7 @@ class ManageProjectsTest extends TestCase
         ];
 
 
-        $response = $this->post(route('projects'), $attributes);
+        $response = $this->post('/projects', $attributes);
 
         $project = Project::where($attributes)->first();
 
@@ -130,7 +131,7 @@ class ManageProjectsTest extends TestCase
 
         $attribute = factory(Project::class)->raw(['title' => '']);
 
-        $this->post(route('projects'), $attribute)->assertSessionHasErrors('title');
+        $this->post('/projects', $attribute)->assertSessionHasErrors('title');
     }
 
     /** @test */
@@ -140,7 +141,7 @@ class ManageProjectsTest extends TestCase
 
         $attribute = factory(Project::class)->raw(['description' => '']);
 
-        $this->post(route('projects'), $attribute)->assertSessionHasErrors('description');
+        $this->post('/projects', $attribute)->assertSessionHasErrors('description');
     }
 
     /** @test */

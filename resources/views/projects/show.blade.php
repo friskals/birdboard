@@ -2,7 +2,7 @@
 @section('content')
 <header class="flex items-center mb-3 py-4">
     <div class="flex justify-between items-end w-full mx-2">
-        <p class="text-grey text-md font-normal"><a href="{{route('projects')}}">My Projects</a> /{{$project->title}}</p>
+        <p class="text-grey text-md font-normal"><a href="{{'/projects'}}">My Projects</a> /{{$project->title}}</p>
         <a href="{{$project->path().'/edit'}}" class="button">Update Project</a>
     </div>
 </header>
