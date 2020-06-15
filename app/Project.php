@@ -13,7 +13,7 @@ class Project extends Model
 
     public function path()
     {
-        return 'projects/' . $this->id;
+        return '/projects/' . $this->id;
     }
     public function owner()
     {

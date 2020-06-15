@@ -1,1 +1,1 @@
-{{$activity->user->name}} complete {{$activity->subject->body}}
+complete {{$activity->subject->body}}

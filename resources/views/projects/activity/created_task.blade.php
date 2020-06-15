@@ -1,1 +1,1 @@
-{{$activity->user->name}} create {{$activity->subject->body}}
+create {{$activity->subject->body}}

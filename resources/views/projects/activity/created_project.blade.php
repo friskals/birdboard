@@ -1,1 +1,1 @@
-{{$activity->user->name}} created new project
+created new project

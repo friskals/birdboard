@@ -1,9 +1,21 @@
 @extends('layouts.app')
 @section('content')
-<header class="flex items-center mb-3 py-4">
-    <div class="flex justify-between items-end w-full mx-2">
-        <p class="text-grey text-md font-normal"><a href="{{'/projects'}}">My Projects</a> /{{$project->title}}</p>
-        <a href="{{$project->path().'/edit'}}" class="button">Update Project</a>
+<header class="flex items-center mb-6 pb-4">
+    <div class="flex justify-between items-end w-full">
+        <p class="text-muted font-light">
+            <a href="/projects" class="text-muted no-underline hover:underline">My Projects</a>
+            / {{ $project->title }}
+        </p>
+
+        <div class="flex items-center">
+            @foreach ($project->members as $member)
+            <img src="{{ gravatar_url($member->email) }}" alt="{{ $member->name }}'s avatar" class="rounded-full w-8 mr-2">
+            @endforeach
+
+            <img src="{{ gravatar_url($project->owner->email) }}" alt="{{ $project->owner->name }}'s avatar" class="rounded-full w-8 mr-2">
+
+            <a href="{{ $project->path().'/edit' }}" class="button ml-4">Edit Project</a>
+        </div>
     </div>
 </header>
 <main class="">
@@ -27,7 +39,9 @@
                 @endforeach
                 <div class="card mb-3">
                     <form action="{{$project->path().'/tasks'}}" method="POST">
+
                         @csrf
+
                         <input placeholder="Add a new task" class="w-full" name="body">
                     </form>
                 </div>
