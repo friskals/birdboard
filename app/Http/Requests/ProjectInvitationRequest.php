@@ -13,9 +13,11 @@ class ProjectInvitationRequest extends FormRequest
      *
      * @return bool
      */
+    protected $errorBag = 'invitations';
+
     public function authorize()
     {
-        return Gate::allows('update', $this->route('project'));
+        return Gate::allows('manage', $this->route('project'));
     }
 
     /**

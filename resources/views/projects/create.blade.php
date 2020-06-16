@@ -29,13 +29,7 @@
                     {{isset($project) ? 'Update' : 'Create'}}</button>
                 <a href="{{route('projects.index')}}">Cancel</a>
             </div>
-            @if($errors->any())
-            @foreach($errors as $error)
-            <div class="field">
-                <li>{{$error}}</li>
-            </div>
-            @endforeach
-            @endif
+            @include('projects.errors')
     </form>
 
 </div>

@@ -56,13 +56,7 @@
                     {{trim($project->notes)}}
                     </textarea>
                     <button type="submit" class="button">Save</button>
-                    @if($errors->any())
-                    <div class="field mt-6">
-                        @foreach($errors as $error)
-                        <div class="text-red-500 text-xs">{{$error}}</div>
-                        @endforeach
-                    </div>
-                    @endif
+                    @include('projects.errors')
                 </form>
             </div>
         </div>
@@ -70,6 +64,10 @@
             @include('projects.card')
 
             @include('projects.activity.card')
+
+            @can('manage', $project)
+            @include('projects.invite')
+            @endcan
         </div>
     </div>
 </main>
