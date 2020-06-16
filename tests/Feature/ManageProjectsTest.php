@@ -105,8 +105,15 @@ class ManageProjectsTest extends TestCase
     {
         $project = ProjectFactory::create();
 
-        $this->delete($project->path())
-            ->assertRedirect('login');
+        $this->delete($project->path())->assertRedirect('login');
+
+        $user = $this->signIn();
+
+        $this->delete($project->path())->assertStatus(403);
+
+        $project->invite($user);
+
+        $this->be($user)->delete($project->path())->assertStatus(403);
     }
     /** @test */
     public function a_user_can_update_their_project()

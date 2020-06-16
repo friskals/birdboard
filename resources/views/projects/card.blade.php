@@ -3,9 +3,11 @@
         <a href="{{$project->path()}}" class="text-black">{{$project->title}}</a>
     </h3>
     <div class="text-grey mb-4 flex-1">{{$project->description}}</div>
+    @can('manage', $project)
     <form action="{{$project->path()}}" method="post" class="text-right">
         @csrf
         @method('DELETE')
         <button type="submit" class="mt -8 text-xs">Delete</button>
     </form>
+    @endcan
 </div>
