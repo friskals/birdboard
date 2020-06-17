@@ -11,6 +11,7 @@ $factory->define(Project::class, function (Faker $faker) {
     return [
         'owner_id' => factory(User::class),
         'title' => $faker->sentence,
+        'notes' => 'Foo notes',
         'description' => $faker->sentence(1)
         /**
          *  'owner_id' => function () {
