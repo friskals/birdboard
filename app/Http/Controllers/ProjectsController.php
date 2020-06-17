@@ -18,7 +18,6 @@ class ProjectsController extends Controller
     }
     public function store()
     {
-
         $project = auth()->user()->projects()->create($this->validateRequest());
 
         return redirect($project->path());
