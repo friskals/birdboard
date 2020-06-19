@@ -2,8 +2,12 @@
 @section('content')
 <header class="flex items-center mb-3 py-4">
     <div class="flex justify-between items-end w-full mx-2">
-        <h3 class="text-muted text-base font-light">My Projects</h3>
-        <a href="{{'/projects/create'}}" class="button no-underline text-default">New Project</a>
+        <h3 class="text-muted text-base font-light">
+            My Projects
+        </h3>
+        <a href="{{'/projects/create'}}" class="button no-underline text-white">
+            New Project
+        </a>
     </div>
 </header>
 

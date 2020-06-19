@@ -5,6 +5,13 @@ module.exports = {
   important: false,
   separator: ':',
   theme: {
+    backgroundColor: {
+      page: 'var(--page-background-color)',
+      card: 'var(--card-background-color)',
+      button: 'var(--button-background-color)',
+      header: 'var(--header-background-color)'
+    },
+
     screens: {
       sm: '640px',
       md: '768px',
@@ -28,6 +35,7 @@ module.exports = {
       muted: 'var(--text-muted-color)',
       'muted-light': 'var(--text-muted-light-color)',
       'blue-s': '#47cdff',
+      black: '#222',
 
     },
     spacing: {
@@ -51,12 +59,7 @@ module.exports = {
       '56': '14rem',
       '64': '16rem',
     },
-    backgroundColor: {
-      page: 'var(--page-background-color)',
-      card: 'var(--card-background-color)',
-      button: 'var(--button-background-color)',
-      header: 'var(--header-background-color)'
-    },
+
     backgroundOpacity: theme => theme('opacity'),
     backgroundPosition: {
       bottom: 'bottom',

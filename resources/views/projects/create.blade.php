@@ -12,31 +12,30 @@
         @endif
 
         <div class="mb-4">
-            <label class="block text-default text-sm font-bold mb-2" for="title">
-                Title
-            </label>
-            <input class="shadow appearance-none border border-muted-light rounded w-full py-2 px-3 text-default leading-tight focus:outline-none focus:shadow-outline" type="text" name="title" id="title" value="{{isset($project) ? $project->title : ''}}" required>
+            <label class="block text-default text-sm font-bold mb-2" for="title">Title</label>
+            <input type="text" class="shadow appearance-none border border-muted-light rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline" name="title" id="title" value="{{isset($project) ? $project->title : ''}}" required>
+        </div>
 
-            <div class="mb-6">
-                <label class="block text-default text-sm font-bold my-3 mb-2" for="description">
-                    Description
-                </label>
-                <textarea rows="5" class="shadow appearance-none border border-muted-light rounded w-full py-2 px-3 text-default leading-tight focus:outline-none focus:shadow-outline" class="form-control" name="description" id="description">
-                {{isset($project) ?trim($project->description): ''}}</textarea>
-            </div>
+        <div class="mb-6">
+            <label class="block text-default text-sm font-bold my-3 mb-2" for="description">Description </label>
+            <textarea rows="5" class="shadow appearance-none border border-muted-light rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline text-black" name="description" id="description">
+            {{isset($project) ?trim($project->description): ''}}</textarea>
+        </div>
 
-            <div class="flex items-center justify-between">
-                <button class="button" type="submit">
-                    {{isset($project) ? 'Update' : 'Create'}}</button>
-                <a href="{{route('projects.index')}}" class="text-default no-underline">Cancel</a>
-            </div>
-            @if($errors->any())
-            <ul class="field mt-6 list-reset">
-                @foreach($errors->all() as $error)
-                <li class="text-sm text-red-600 ">{{$error}}</li>
-                @endforeach
-            </ul>
-            @endif
+        <div class="flex items-center justify-between">
+            <button class="button" type="submit">
+                {{isset($project) ? 'Update' : 'Create'}}</button>
+            <a href="{{route('projects.index')}}" class="text-default no-underline">Cancel</a>
+        </div>
+
+        @if($errors->any())
+        <ul class="field mt-6 list-reset">
+            @foreach($errors->all() as $error)
+            <li class="text-sm text-red-600 ">{{$error}}</li>
+            @endforeach
+        </ul>
+        @endif
+
     </form>
 
 </div>
