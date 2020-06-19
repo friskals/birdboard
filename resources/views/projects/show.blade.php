@@ -63,7 +63,7 @@
                     </textarea>
                     <button type="submit" class="button">Save</button>
 
-                    @include('projects.errors')
+                    @include('errors')
                 </form>
             </div>
         </div>
