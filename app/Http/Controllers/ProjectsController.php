@@ -10,6 +10,7 @@ class ProjectsController extends Controller
 
     {
         $projects =  auth()->user()->accessibleProjects();
+
         return view('projects.index')->with('projects', $projects);
     }
     public function create()
@@ -20,6 +21,9 @@ class ProjectsController extends Controller
     {
         $project = auth()->user()->projects()->create($this->validateRequest());
 
+        if (request()->wantsJson()) {
+            return ['message' => $project->path()];
+        }
         return redirect($project->path());
     }
     public function destroy(Project $project)

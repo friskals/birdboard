@@ -46,7 +46,7 @@
                             <a class="no-underline text-default" href="{{ route('register') }}">{{ __('Register') }}</a>
                             @endif
                             @else
-                            <theme-swither></theme-swither>
+                            <theme-switcher></theme-switcher>
                             <a class="flex items-center no-underline text-lg mr-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }}
                                 <img width="35" class="rounded-full mx-3" src="{{ gravatar_url(auth()->user()->email) }}" />

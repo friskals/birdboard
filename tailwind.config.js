@@ -36,6 +36,7 @@ module.exports = {
       'muted-light': 'var(--text-muted-light-color)',
       'blue-s': '#47cdff',
       black: '#222',
+      'error': 'var(--text-error-color)',
 
     },
     spacing: {
