@@ -24,6 +24,9 @@ class ProjectsController extends Controller
         if (request()->wantsJson()) {
             return ['message' => $project->path()];
         }
+        if ($tasks = request('tasks')) {
+            $project->addTasks($tasks);
+        }
         return redirect($project->path());
     }
     public function destroy(Project $project)
