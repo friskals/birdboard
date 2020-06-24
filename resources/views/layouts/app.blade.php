@@ -41,37 +41,38 @@
                         <div class="flex items-center navbar-nav ml-auto">
                             <!-- Authentication Links -->
                             @guest
-                            <a class="no-underline text-default" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            <a class="no-underline text-default mr-3" href="{{ route('login') }}">{{ __('Login') }}</a>
                             @if (Route::has('register'))
                             <a class="no-underline text-default" href="{{ route('register') }}">{{ __('Register') }}</a>
                             @endif
                             @else
                             <theme-switcher></theme-switcher>
-                            <a class="flex items-center no-underline text-lg mr-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }}
-                                <img width="35" class="rounded-full mx-3" src="{{ gravatar_url(auth()->user()->email) }}" />
-                            </a>
 
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="no-underline text-default" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            <dropdown>
+                                <template v-slot:trigger>
+                                    <button class="flex items-center no-underline text-lg mr-2 focus:outline-none">
+                                        {{ Auth::user()->name }}
+                                        <img width="35" class="rounded-full mx-3" src="{{ gravatar_url(auth()->user()->email) }}" />
+                                    </button>
+                                </template>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST">
                                     @csrf
+                                    <button type="submit" class="dropdown-menu-link">Logout</button>
                                 </form>
-                            </div>
-                            @endguest
+
+                            </dropdown>
+
                         </div>
+                        @endguest
                     </div>
                 </div>
             </div>
-        </nav>
+    </div>
+    </nav>
 
-        <main class="container mx-auto py-4">
-            @yield('content')
-        </main>
+    <main class="container mx-auto py-4">
+        @yield('content')
+    </main>
 
     </div>
 </body>
